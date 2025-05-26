@@ -1,0 +1,16 @@
+{
+    "name": "Frogger.Frog",
+    "rootNamespace": "",
+    "references": [
+        "GUID:feedd1fc11b0b9d4ba43d186460ac80d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

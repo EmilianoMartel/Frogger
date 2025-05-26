@@ -1,6 +1,12 @@
 using UnityEngine;
 
-public class FrogView : MonoBehaviour
+namespace Frog
 {
-    private Frog _frog;
+    public class FrogView : MonoBehaviour
+    {
+        public void UpdatePosition(Vector2 position)
+        {
+            transform.position = position;
+        }
+    }
 }
