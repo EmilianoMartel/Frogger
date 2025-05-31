@@ -14,8 +14,7 @@ namespace Cars
         private string _endZoneString = "EndZone";
 
         public event Action<CarPresenter> OnRequestReturnToPool;
-        public event Action<CarPresenter> OnPlayerCollision;
-
+        
         public CarPresenter(CarModel model, CarView view)
         {
             _model = model;
@@ -50,26 +49,14 @@ namespace Cars
 
         private void HandleObjectTriggerEnter(Collider2D objectCollider)
         {
-            if (objectCollider.CompareTag(_playerTag))
-            {
-                HandlePlayerCollision();
-            }
-            else if (objectCollider.CompareTag(_endZoneString))
-            {
+            if (objectCollider.CompareTag(_playerTag) || objectCollider.CompareTag(_endZoneString))
                 HandleDisabling();
-            }
         }
 
         private void HandleDisabling()
         {
             OnRequestReturnToPool?.Invoke(this);
             _view.DisableView();
-        }
-
-        private void HandlePlayerCollision()
-        {
-            OnPlayerCollision?.Invoke(this);
-            HandleDisabling();
         }
     }
 }

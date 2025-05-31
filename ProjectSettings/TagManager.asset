@@ -6,6 +6,7 @@ TagManager:
   tags:
   - EndZone
   - FinalZone
+  - Car
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Input;
+using System;
 
 namespace Frog
 {
@@ -9,7 +10,13 @@ namespace Frog
         private FrogView _view;
         private float _moveSpeed;
 
+        private string _carTag = "Car";
+        private string _endZone = "FinalZone";
+
         private Vector2 _currentDirection = Vector2.zero;
+
+        public event Action OnCarTriggerEntred;
+        public event Action OnFinalZoneEntered;
 
         public FrogPresenter(FrogModel model, FrogView playerView, InputHandler inputHandler, float moveSpeed)
         {
@@ -17,11 +24,13 @@ namespace Frog
             _view = playerView;
             _moveSpeed = moveSpeed;
 
+            _view.OnTriggerEnterEvent += HandleCheckCarCollition;
             inputHandler.OnMove += OnMove;
         }
 
         public void Dispose(InputHandler inputHandler)
         {
+            _view.OnTriggerEnterEvent -= HandleCheckCarCollition;
             inputHandler.OnMove -= OnMove;
         }
 
@@ -39,6 +48,12 @@ namespace Frog
         private void OnMove(Vector2 direction)
         {
             _currentDirection = direction.sqrMagnitude > 0.01f ? direction.normalized : Vector2.zero;
+        }
+
+        private void HandleCheckCarCollition(Collider2D collider)
+        {
+            if (collider.CompareTag(_carTag)) OnCarTriggerEntred?.Invoke();
+            else if (collider.CompareTag(_endZone)) OnFinalZoneEntered?.Invoke();
         }
 
         private void UpdateMovement()

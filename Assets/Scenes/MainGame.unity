@@ -801,13 +801,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f5d12ba798a7d345ad8756210b15714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 672941777}
-  boundTopLeft: {fileID: 210139731}
-  boundBottomRight: {fileID: 1821711985}
+  _inputHandler: {fileID: 672941777}
+  _boundTopLeft: {fileID: 210139731}
+  _boundBottomRight: {fileID: 1821711985}
   _frogView: {fileID: 1534074621}
-  moveSpeed: 5
-  spawnPosition: {fileID: 738268276}
-  levelStartTime: 60
+  _moveSpeed: 5
+  _spawnPosition: {fileID: 738268276}
+  _levelStartTime: 60
 --- !u!4 &1713347552
 Transform:
   m_ObjectHideFlags: 0
