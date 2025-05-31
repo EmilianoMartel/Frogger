@@ -1,5 +1,6 @@
 using Codice.Client.Common.GameUI;
 using System;
+using UnityEditor.Search;
 using UnityEngine;
 
 namespace Cars
@@ -9,6 +10,9 @@ namespace Cars
         private CarModel _model;
         private CarView _view;
 
+        private string _playerTag = "Player";
+        private string _endZoneString = "EndZone";
+
         public event Action<CarPresenter> OnRequestReturnToPool;
         public event Action<CarPresenter> OnPlayerCollision;
 
@@ -17,6 +21,7 @@ namespace Cars
             _model = model;
             _view = view;
 
+            _view.SetNewColor(_model.Color);
             _view.OnObjectTriggerEnter += HandleObjectTriggerEnter;
             _view.UpdatePosition(_model.Position);
         }
@@ -36,13 +41,20 @@ namespace Cars
             _view.OnObjectTriggerEnter -= HandleObjectTriggerEnter;
         }
 
+        public void Respawn(Transform position)
+        {
+            _model.Move(position.position);
+            _view.EnableView();
+            _view.UpdatePosition(_model.Position);
+        }
+
         private void HandleObjectTriggerEnter(Collider2D objectCollider)
         {
-            if (objectCollider.CompareTag("Player"))
+            if (objectCollider.CompareTag(_playerTag))
             {
-                OnPlayerCollision?.Invoke(this);
+                HandlePlayerCollision();
             }
-            else if (objectCollider.CompareTag("EndZone"))
+            else if (objectCollider.CompareTag(_endZoneString))
             {
                 HandleDisabling();
             }
@@ -51,11 +63,13 @@ namespace Cars
         private void HandleDisabling()
         {
             OnRequestReturnToPool?.Invoke(this);
+            _view.DisableView();
         }
 
         private void HandlePlayerCollision()
         {
             OnPlayerCollision?.Invoke(this);
+            HandleDisabling();
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Cars
 {
-    [CreateAssetMenu(fileName = "CarData", menuName = "Scriptable Objects/CarData")]
+    [CreateAssetMenu(fileName = "CarData", menuName = "GameplayData/CarData")]
     public class CarData : ScriptableObject
     {
         [SerializeField] private Color _carColor = Color.white;

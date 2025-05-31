@@ -1,0 +1,16 @@
+{
+    "name": "Frogger.CarSpawners",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0a7867fed891fd946987722b056804ff"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

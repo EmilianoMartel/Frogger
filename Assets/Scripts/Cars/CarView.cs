@@ -12,9 +12,19 @@ namespace Cars
         public void SetNewColor(Color color)
         {
             if(_spriteRenderer == null && transform.TryGetComponent(out SpriteRenderer renderer))
-                renderer = _spriteRenderer;
+                _spriteRenderer = renderer;
 
             _spriteRenderer.color = color;
+        }
+
+        public void DisableView()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void EnableView()
+        {
+            gameObject.SetActive(true);
         }
 
         public void UpdatePosition(Vector2 position)
