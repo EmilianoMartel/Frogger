@@ -1,6 +1,6 @@
 using Frog;
 using Input;
-using TMPro.EditorUtilities;
+using Timer;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,24 +18,39 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform _spawnPosition;
 
     [Header("Timer Settings")]
-    //[SerializeField] private TimerView timerView;
+    [SerializeField] private TimerView _timerView;
     [SerializeField] private float _levelStartTime = 60f;
 
     private FrogPresenter _frogPresenter;
+    private TimerPresenter _timerPresenter;
 
     private void Start()
     {
-        // Setup player
-        var frogModel = new FrogModel(_spawnPosition.position, _boundTopLeft.position, _boundBottomRight.position);
+        SetupPlayer();
+        SetupTimer();
+    }
+
+    private void Update()
+    {
+        _frogPresenter.Update();
+        _timerPresenter.UpdateTime(Time.deltaTime);
+    }
+
+    private void SetupPlayer()
+    {
+        FrogModel frogModel = new FrogModel(_spawnPosition.position, _boundTopLeft.position, _boundBottomRight.position);
         _frogPresenter = new FrogPresenter(frogModel, _frogView, _inputHandler, _moveSpeed);
 
         _frogPresenter.OnCarTriggerEntred += HandlePlayerRespawn;
         _frogPresenter.OnFinalZoneEntered += HandleWin;
     }
 
-    private void Update()
+    private void SetupTimer()
     {
-        _frogPresenter.Update();
+        TimerModel model = new(_levelStartTime);
+        _timerPresenter = new(_timerView,model);
+
+        _timerPresenter.OnTimeEnded += HandleLose;
     }
 
     [ContextMenu("Respawn Player")]
@@ -48,5 +63,10 @@ public class GameManager : MonoBehaviour
     private void HandleWin()
     {
         Debug.Log("Win");
+    }
+
+    private void HandleLose()
+    {
+        Debug.Log("Lose");
     }
 }
