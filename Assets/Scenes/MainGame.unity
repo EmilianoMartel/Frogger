@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 140077823}
   - component: {fileID: 140077822}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf87ba77a43798488a1aadb3e90211a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 0}
+  _text: {fileID: 143205833}
 --- !u!1 &210139730
 GameObject:
   m_ObjectHideFlags: 0
