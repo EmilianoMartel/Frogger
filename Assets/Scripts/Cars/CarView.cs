@@ -7,9 +7,9 @@ namespace Cars
     {
         private SpriteRenderer _spriteRenderer;
 
-        public event Action<Collider2D> OnObjectTriggerEnter;
+        public virtual event Action<Collider2D> OnObjectTriggerEnter;
 
-        public void SetNewColor(Color color)
+        public virtual void SetNewColor(Color color)
         {
             if(_spriteRenderer == null && transform.TryGetComponent(out SpriteRenderer renderer))
                 _spriteRenderer = renderer;
@@ -17,17 +17,17 @@ namespace Cars
             _spriteRenderer.color = color;
         }
 
-        public void DisableView()
+        public virtual void DisableView()
         {
             gameObject.SetActive(false);
         }
 
-        public void EnableView()
+        public virtual void EnableView()
         {
             gameObject.SetActive(true);
         }
 
-        public void UpdatePosition(Vector2 position)
+        public virtual void UpdatePosition(Vector2 position)
         {
             transform.position = position;
         }

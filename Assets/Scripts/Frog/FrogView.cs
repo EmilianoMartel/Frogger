@@ -5,9 +5,9 @@ namespace Frog
 {
     public class FrogView : MonoBehaviour
     {
-        public event Action<Collider2D> OnTriggerEnterEvent;
+        public virtual event Action<Collider2D> OnTriggerEnterEvent;
 
-        public void UpdatePosition(Vector2 position)
+        public virtual void UpdatePosition(Vector2 position)
         {
             transform.position = position;
         }

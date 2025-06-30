@@ -7,7 +7,7 @@ namespace Timer
     {
         [SerializeField] private TMP_Text _text;
 
-        public void UpdateTime(float time)
+        public virtual void UpdateTime(float time)
         {
             int minutes = Mathf.FloorToInt(time / 60f);
             int seconds = Mathf.FloorToInt(time % 60f);

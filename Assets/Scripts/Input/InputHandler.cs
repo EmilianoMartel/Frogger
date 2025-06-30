@@ -7,7 +7,7 @@ namespace Input
     {
         private InputSystem_Actions _inputActions;
 
-        public Action<Vector2> OnMove;
+        public virtual event Action<Vector2> OnMove;
 
         private void Awake()
         {

@@ -23,7 +23,8 @@ namespace CarSpawners
 
         private void Awake()
         {
-            StartCoroutine(SpawnColdDown());
+            if(_data != null)
+                StartCoroutine(SpawnColdDown());
         }
 
         private void Update()
@@ -32,6 +33,15 @@ namespace CarSpawners
             {
                 car.Move();
             }
+        }
+
+        public void Initialize(SpawnData data, CarView carPrefab, Vector2 direction)
+        {
+            _data = data;
+            _carPrefab = carPrefab;
+            _direction = direction;
+
+            StartCoroutine(SpawnColdDown());
         }
 
         private void SpawnCar()
