@@ -59,10 +59,9 @@ namespace PlayModeTests
         [UnityTest]
         public IEnumerator Spawner_CreatesCarAfterCooldown()
         {
-            // Wait longer than SpawnTime to allow spawn
-            yield return new WaitForSeconds(0.15f);
+            // Wait longer than the spawner cooldown
+            yield return new WaitForSeconds(_data.SpawnTime + 0.1f);
 
-            // Check if a car was spawned
             var carList = (List<CarPresenter>)typeof(Spawner)
                 .GetField("_carEnabled", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 .GetValue(_spawner);
@@ -74,27 +73,30 @@ namespace PlayModeTests
         [UnityTest]
         public IEnumerator Spawner_HandlesCarReturnToPool()
         {
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(_data.SpawnTime + 0.1f);
 
-            // Access list of cars
             var carList = (List<CarPresenter>)typeof(Spawner)
                 .GetField("_carEnabled", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 .GetValue(_spawner);
 
-            Assert.AreEqual(1, carList.Count);
+            Assert.IsNotNull(carList, "_carEnabled list is null");
+            Assert.Greater(carList.Count, 0, "No cars were spawned!");
 
             CarPresenter car = carList[0];
+
             car.GetType()
-                .GetMethod("HandleDisabling", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetMethod(
+                    "HandleDisabling",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
+                )
                 .Invoke(car, null);
 
-            // Verify car was movedS to disabled list
             var disabledList = (List<CarPresenter>)typeof(Spawner)
                 .GetField("_carsDisabled", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 .GetValue(_spawner);
 
-            Assert.AreEqual(1, disabledList.Count);
-            Assert.AreEqual(0, carList.Count);
+            Assert.AreEqual(1, disabledList.Count, "Car was not returned to the pool");
+            Assert.AreEqual(0, carList.Count, "Car still active in _carEnabled list");
         }
     }
 }
