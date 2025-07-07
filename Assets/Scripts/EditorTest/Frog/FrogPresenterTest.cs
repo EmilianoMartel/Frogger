@@ -36,9 +36,11 @@ namespace Tests
         public void OnMove_UpdatesDirectionCorrectly()
         {
             _inputHandler.SimulateMove(new Vector2(1, 0));
-            _presenter.Update();
 
-            float expectedMovement = _moveSpeed * 0.02f;
+            float testDeltaTime = 0.1f;
+            _presenter.Update(testDeltaTime);
+
+            float expectedMovement = _moveSpeed * testDeltaTime;
             Vector2 expectedPosition = new Vector2(expectedMovement, 0);
 
             Assert.AreEqual(expectedPosition.x, _model.Position.x, 0.001f);
@@ -48,7 +50,7 @@ namespace Tests
         public void Movement_RespectsBoundaries()
         {
             _inputHandler.SimulateMove(new Vector2(100, 100));
-            _presenter.Update();
+            _presenter.Update(0.1f);
 
             Assert.LessOrEqual(_model.Position.x, _model.BoundBottomRight.x);
             Assert.LessOrEqual(_model.Position.y, _model.BoundTopLeft.y);

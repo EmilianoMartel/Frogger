@@ -8,14 +8,14 @@ namespace Cars
     public class CarPresenter
     {
         private CarModel _model;
-        private CarView _view;
+        private ICarView _view;
 
         private string _playerTag = "Player";
         private string _endZoneString = "EndZone";
 
         public event Action<CarPresenter> OnRequestReturnToPool;
         
-        public CarPresenter(CarModel model, CarView view)
+        public CarPresenter(CarModel model, ICarView view)
         {
             _model = model;
             _view = view;
@@ -25,9 +25,9 @@ namespace Cars
             _view.UpdatePosition(_model.Position);
         }
 
-        public void Move()
+        public void Move(float deltaTime)
         {
-            var movement = _model.MoveDirection * (_model.Speed * Time.deltaTime);
+            var movement = _model.MoveDirection * (_model.Speed * deltaTime);
             var currentPosition = _model.Position;
             var nextPosition = currentPosition + movement;
 

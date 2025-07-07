@@ -16,7 +16,7 @@ namespace Timer
         public float UpdateTime(float deltaTime)
         {
             CurrentTime -= deltaTime;
-
+            CurrentTime = Mathf.Max(0f, CurrentTime);
             return CurrentTime;
         }
     }

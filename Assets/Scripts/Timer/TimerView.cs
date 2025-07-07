@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Timer
 {
-    public class TimerView : MonoBehaviour
+    public class TimerView : MonoBehaviour, ITimerView
     {
         [SerializeField] private TMP_Text _text;
 
-        public virtual void UpdateTime(float time)
+        public void UpdateTime(float time)
         {
             int minutes = Mathf.FloorToInt(time / 60f);
             int seconds = Mathf.FloorToInt(time % 60f);

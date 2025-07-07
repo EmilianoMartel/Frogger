@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Cars
 {
-    public class CarView : MonoBehaviour
+    public class CarView : MonoBehaviour, ICarView
     {
         private SpriteRenderer _spriteRenderer;
 
-        public virtual event Action<Collider2D> OnObjectTriggerEnter;
+        public event Action<Collider2D> OnObjectTriggerEnter;
 
         public virtual void SetNewColor(Color color)
         {

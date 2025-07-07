@@ -3,11 +3,12 @@ using System;
 
 namespace Frog
 {
-    public class FrogView : MonoBehaviour
-    {
-        public virtual event Action<Collider2D> OnTriggerEnterEvent;
+    public class FrogView : MonoBehaviour, IFrogView
 
-        public virtual void UpdatePosition(Vector2 position)
+    {
+        public event Action<Collider2D> OnTriggerEnterEvent;
+
+        public void UpdatePosition(Vector2 position)
         {
             transform.position = position;
         }

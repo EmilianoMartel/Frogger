@@ -4,12 +4,12 @@ using Frog;
 
 namespace Tests
 {
-    public class MockFrogView : FrogView
+    public class MockFrogView : IFrogView
     {
-        public override event Action<Collider2D> OnTriggerEnterEvent;
+        public event Action<Collider2D> OnTriggerEnterEvent;
         public Vector2 LastPosition { get; private set; }
 
-        public override void UpdatePosition(Vector2 position)
+        public void UpdatePosition(Vector2 position)
         {
             LastPosition = position;
         }

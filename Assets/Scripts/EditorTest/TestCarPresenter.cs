@@ -31,16 +31,13 @@ namespace Tests
         [Test]
         public void Move_UpdatesModelAndViewPosition()
         {
-            // Arrange
             float deltaTime = 0.02f;
 
             Vector2 expectedMovement = _model.MoveDirection * (_model.Speed * deltaTime);
             Vector2 expectedPosition = _model.Position + expectedMovement;
 
-            // Act
-            _presenter.Move();
+            _presenter.Move(deltaTime);
 
-            // Assert
             Assert.AreEqual(expectedPosition, _model.Position);
             Assert.AreEqual(expectedPosition, _view.LastUpdatedPosition);
         }
@@ -56,8 +53,10 @@ namespace Tests
             _presenter.Respawn(go.transform);
 
             // Assert
-            Assert.AreEqual(go.transform.position, _model.Position);
-            Assert.AreEqual(go.transform.position, _view.LastUpdatedPosition);
+            Vector2 expectedPosition = (Vector2)go.transform.position;
+
+            Assert.AreEqual(expectedPosition, _model.Position);
+            Assert.AreEqual(expectedPosition, _view.LastUpdatedPosition);
             Assert.IsTrue(_view.IsEnabled);
         }
 

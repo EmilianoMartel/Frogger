@@ -5,9 +5,9 @@ using Input;
 
 namespace Tests
 {
-    public class MockInputHandler : InputHandler
+    public class MockInputHandler : IInputHandler
     {
-        public override event Action<Vector2> OnMove;
+        public event Action<Vector2> OnMove;
 
         public void SimulateMove(Vector2 direction)
         {

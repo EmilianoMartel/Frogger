@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        _frogPresenter.Update();
+        _frogPresenter.Update(Time.deltaTime);
         _timerPresenter.UpdateTime(Time.deltaTime);
     }
 

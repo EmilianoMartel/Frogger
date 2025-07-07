@@ -7,7 +7,7 @@ namespace Frog
     public class FrogPresenter
     {
         private FrogModel _model;
-        private FrogView _view;
+        private IFrogView _view;
         private float _moveSpeed;
 
         private string _carTag = "Car";
@@ -18,7 +18,7 @@ namespace Frog
         public event Action OnCarTriggerEntred;
         public event Action OnFinalZoneEntered;
 
-        public FrogPresenter(FrogModel model, FrogView playerView, InputHandler inputHandler, float moveSpeed)
+        public FrogPresenter(FrogModel model, IFrogView playerView, IInputHandler inputHandler, float moveSpeed)
         {
             _model = model;
             _view = playerView;
@@ -34,9 +34,9 @@ namespace Frog
             inputHandler.OnMove -= OnMove;
         }
 
-        public void Update()
+        public void Update(float deltaTime)
         {
-            UpdateMovement();
+            UpdateMovement(deltaTime);
         }
 
         public void SetSpawnPosition(Vector2 spawnPosition)
@@ -56,9 +56,9 @@ namespace Frog
             else if (collider.CompareTag(_endZone)) OnFinalZoneEntered?.Invoke();
         }
 
-        private void UpdateMovement()
+        private void UpdateMovement(float deltaTime)
         {
-            var movement = _currentDirection * (_moveSpeed * Time.deltaTime);
+            var movement = _currentDirection * (_moveSpeed * deltaTime);
             var currentPosition = _model.Position;
             var nextPosition = currentPosition + movement;
 

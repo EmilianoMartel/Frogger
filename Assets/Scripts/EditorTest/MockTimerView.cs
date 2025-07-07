@@ -4,11 +4,11 @@ using Timer;
 namespace Tests
 {
     [TestFixture]
-    public class MockTimerView : TimerView
+    public class MockTimerView : ITimerView
     {
         public float DisplayedTime { get; private set; }
 
-        public override void UpdateTime(float time)
+        public void UpdateTime(float time)
         {
             DisplayedTime = time;
         }

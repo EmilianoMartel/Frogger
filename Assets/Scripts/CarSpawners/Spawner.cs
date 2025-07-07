@@ -31,7 +31,7 @@ namespace CarSpawners
         {
             foreach(CarPresenter car in _carEnabled)
             {
-                car.Move();
+                car.Move(Time.deltaTime);
             }
         }
 

@@ -33,12 +33,13 @@ namespace Tests
         public void UpdateTime_WhenTimeReachesZero_InvokesOnTimeEnded()
         {
             bool eventCalled = false;
-            _presenter.OnTimeEnded += () => eventCalled = true;
 
             _model = new TimerModel(1f);
             _presenter = new TimerPresenter(_view, _model);
 
-            _presenter.UpdateTime(2f); // Exceeds remaining time
+            _presenter.OnTimeEnded += () => eventCalled = true;
+
+            _presenter.UpdateTime(2f);
 
             Assert.AreEqual(0f, _model.CurrentTime, 0.001f);
             Assert.AreEqual(0f, _view.DisplayedTime, 0.001f);
